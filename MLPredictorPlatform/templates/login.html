@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>ML clinical support platform</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	  
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'style/login.css' %}">
+</head>
+	<!-- <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>  -->  
+<body>
+	<div class="testbox">
+	{% if messages %}
+	    <div class="alert alert-success" role="alert">
+	        {% for message in messages %}
+	            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	        {% endfor %}
+	    </div>
+	{% endif %}
+	
+	
+	
+	<form action="." method="post" class="form-signin">
+		
+	<h2 class="form-signin-heading"> ML Clinical Support Platform</h2>
+	{% if form.errors %}
+				<div class="alert alert-warning" role="alert">
+				{% for key, value in form.errors.items %}
+				    {% if key != '__all__' %}{% endif %}{{ value }}
+				 {% endfor %}
+				 </div>
+	{% endif %}
+	<div class="form-group">
+	    {% csrf_token %}
+	    {% for field in form %}
+		        <div class="">{{ field.label_tag }} {{ field }}</div>
+		         
+		{% endfor %}
+	    <input type="submit" value="Iniciar sesión"  class="btn btn-lg btn-primary btn-block"/>
+	</div>
+	
+	
+	<p>Si aún no está registrado pulse <a href="/MLPredictorPlatform/registro">aquí</a> para obtener su cuenta</p>
+	</form>
+	<!-- {% if form.errors %}
+	     {% for errors in form.errors %}
+	        {{ errors }}
+	    {% endfor %}
+	{% endif %}-->
+	</div>
+</body>
+</html>

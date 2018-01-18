@@ -1,0 +1,37 @@
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
+<link href="http://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+<link href="sintomas-form-style.css" rel='stylesheet' type='text/css'>
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'MiPrimeraApp/sintomas-form-style.css' %}">
+
+<div class="testbox">
+  <h1>Inflamaciones agudas</h1>
+
+  <form action="/result" >
+    <hr>
+    Indique a continuación los síntomas que presenta.
+  	<hr>
+  
+  <!-- <input type="text" name="name" id="name" placeholder="Email" required/> -->
+  <!-- <label id="icon" for="name"><i class="icon-user"></i></label> -->
+  <!-- <input type="text" name="name" id="name" placeholder="Name" required/> -->
+  <!-- <label id="icon" for="name"><i class="icon-shield"></i></label> -->
+  <div class="gender">
+    <input type="number" name="temperature" placeholder="Temperatura corporal" min="35" max="42" step="0.1" required> ºC
+    <input type="checkbox" value="1" id="nausea" name="nausea" />
+    <label for="nausea" class="checkbox">Ocurrencia de náuseas</label>
+    <input type="checkbox" value="1" id="lumbar_pain" name="lumbar_pain" />
+    <label for="lumbar_pain" class="checkbox">Dolor lumbar</label>
+	<input type="checkbox" value="1" id="urine_pushing" name="urine_pushing" />
+    <label for="urine_pushing" class="checkbox">Continua necesidad de orinar</label>
+	<input type="checkbox" value="1" id="micturition_pains" name="micturition_pains" />
+    <label for="micturition_pains" class="checkbox">Dolor al orinar</label>
+	<input type="checkbox" value="1" id="burning_urethra" name="burning_urethra" />
+    <label for="burning_urethra" class="checkbox">Uretra ardiente, picor o hinchazón en la salida de la uretra </label>
+   </div> 
+   <p>Tenga presente que el pronóstico solo es una estimación. Consulte a su médico para confirmar los resultados</a>.</p>
+   <!-- <a href="#" class="button"> Predecir </a> -->
+   <input type='submit' value='Predecir'></input>
+  </form>
+</div>

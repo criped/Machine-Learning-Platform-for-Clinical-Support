@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>ML clinical support platform</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	  
+	
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'style/login.css' %}">
+</head>
+
+
+<header>
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <p class="navbar-brand">
+	        ML Clinical Support Platform
+	      </a>
+	      <p class="navbar-text" >Sesión iniciada como {{user.first_name}}</p>
+	      <a href="/MLPredictorPlatform/logout/" class="btn btn-default navbar-btn">Cerrar sesión</a>
+	    </div>
+	    
+	  </div>
+	  {% if messages %}
+	    <div class="alert alert-success" role="alert">
+	        {% for message in messages %}
+	            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	        {% endfor %}
+	    </div>
+	{% endif %}
+	</nav>
+
+
+    
+</header>
+<body>
+	<div class="panel panel-primary">
+	<div class="panel-heading">Modelos seleccionados</div>
+    {% if user_models %}	
+    	<table style="width:100%" class=table>
+    	<tr>
+		  	<td><strong>MODELO</strong></td>
+		    <td><strong>DESCRIPCIÓN</strong></td>
+		    <td><strong>CAPACIDAD PREDICTIVA (%)</strong></td>
+		    <td><strong>FECHA</strong></td>
+		</tr>	
+	    {% for model in user_models %}
+	  	<tr>
+	    	<td><a href = "{{model.id}}"><am>{{model.name}}</am> </a></td>
+	    	<td>{{model.description}}</td>
+	    	<td>{{model.predictive_capacity}}</td>
+	    	<td>{{model.date}}</td>		
+	  	</tr>
+		{% endfor %}
+		</table>
+	
+	{% else %}
+	<div class="panel-body">
+		<p> Aún no ha seleccionado ningún modelo. </p>
+	</div>
+	{% endif %}
+	<div class="panel-footer">
+		<p style="text-align:right"><a href="/MLPredictorPlatform/modelos/seleccionar" class="btn btn-default"> Seleccionar modelos</a></p>
+	</div>	
+	</div>
+	
+	{% if is_researcher %}
+	<div class="panel panel-info">
+		<div class="panel-heading">Mis modelos</div>
+		{% if uploaded_models %}		
+			<table style="width:100%" class=table>
+	    	<tr>
+			  	<td><strong>MODELO</strong></td>
+			    <td><strong>DESCRIPCIÓN</strong></td>
+			    <td><strong>CAPACIDAD PREDICTIVA (%)</strong></td>
+			    <td><strong>FECHA</strong></td>
+			    <td><strong>VISIBLE A LOS DEMÁS</strong></td>
+			</tr>	
+		    {% for model in uploaded_models %}
+		  	<tr>
+		    	<td><a href = "{{model.id}}"><am>{{model.name}}</am> </a></td>
+		    	<td>{{model.description}}</td>
+		    	<td>{{model.predictive_capacity}}</td>
+		    	<td>{{model.date}}</td>
+		    	<td>{{model.visible}}</td>
+		    	
+		    	
+				<td>
+				<div class="btn-group">
+				  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Acciones <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu pull-right">
+				    <li><a href= "{{model.id}}/editar-vis">Cambiar visibilidad</a></li>				    
+				    <li><a href= "{{model.id}}/editar">Editar</a></li>
+				    <li><a href= "{{model.id}}/eliminar">Eliminar</a></li>
+				    <!-- <li role="separator" class="divider"></li> -->
+				  </ul>
+				</div>
+				</td>
+				<!-- 
+		    	<td> <a href= "{{model.id}}/editar-vis">Cambiar visibilidad</a></td>
+		    	<td> <a href= "{{model.id}}/editar">Editar</a></td>
+		    	<td> <a href= "{{model.id}}/eliminar">Eliminar</a></td>	-->
+		    	
+		  	</tr>
+			{% endfor %}
+			</table>
+		{% else %}
+		<div class="panel-body">
+			<p> Aún no ha subido ningún modelo. </p>
+		</div>
+		{% endif %}
+	<div class="panel-footer">
+		<p style="text-align:right"><a href="/MLPredictorPlatform/modelos/subir" class="btn btn-default">Subir modelo</a></p>
+	</div>
+	</div>
+	{% endif %}
